@@ -1,0 +1,27 @@
+---
+timeformat: "%Y-%m-%d %H:%M:%S"
+start_date: '2024-06-30'
+end_date: '2024-06-30'
+min_records: 3000000
+max_records: 5000000
+# min_records: 1000
+# max_records: 10000
+interval: '1m'
+destination: '/home/tom/data/cyber'
+metadata: { 
+    protocols:       ['TCP', 'UDP', 'ICMP', 'AH', 'ESP', 'IPIP', 'SSH'],
+    flags:           ['ACK', 'RST ACK', 'SYN ACK', 'RST'],
+    dns_lookup:      'conf/common/dns/dns_lookup.txt',
+    dns_servers:     'conf/common/dns/dns_servers.txt',
+    dns_query_types: { code: ['A', 'AAAA', 'NS', 'CNAME', 'MX'], weights: [0.85, 0.01, 0.02, 0.07, 0.05] },
+    dns_response:    { code: ['NOERROR', 'FORMERR', 'SERVFAIL', 'NXDOMAIN',  'REFUSED'], weights: [0.85, 0.01, 0.02, 0.07, 0.05] },
+    ipaddresses:     'conf/common/geo_ip/ipaddresses.csv',
+    devices:         'conf/common/cyber/devices.csv',
+    users:           'conf/common/cyber/users.csv',
+    user_device_ip:  'conf/common/cyber/user_device_ipaddress_dns.csv' 
+}    
+attacks: { 
+    attack_prob: 0.01, 
+    attack_type: { 'DoS': 0.5, 'DDoS': 0.5}, 
+    attack_target: {'DNS': 0.2, 'DOMAIN': 0.8} 
+}
